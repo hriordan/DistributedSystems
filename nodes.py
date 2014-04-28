@@ -26,7 +26,7 @@ class Node:
 
 
     def __eq__(self, other):
-        if self.id == other.id
+        if self.id == other.id:
             return True
         else:
             return False
@@ -42,12 +42,12 @@ class Node:
         else: #Traitor! 
             for gen in generals:
                 if gen.id % 2 == 0: 
-                    if self.ordict[key] = orders.retreat:
+                    if self.ordict[key] == orders.retreat:
                         gen.ordict[key] = orders.attack
                     else:
                         gen.ordict[key] = orders.retreat
                 else:
-                    gen.ordict[key]= self.ordict[key] 
+                    gen.ordict[key] = self.ordict[key] 
 
 
 
@@ -89,6 +89,10 @@ def generals(order):
 
     _generals_h('_', m, generals[0], generals[2:])
 
+    #check results
+    for gen in generals:
+        print str(gen.id) + "is doing " + str(gen.orders)
+
 
 
 
@@ -112,6 +116,7 @@ def _generals_h(prefix, m, commander, generals): #whatdo
         #do majority:
         for gen in generals:
             gen.ordict[prefix] = majority(gen, generals.remove(gen), prefix) #again, ensure the scope here. 
+            gen.orders = gen.ordict[prefix]
 
         #return generals
     return 
