@@ -9,6 +9,7 @@ class orders:
     retreat = 2
     tie = 3
     
+
 def ordertostring(order):
     if order == orders.attack:
         return "A"
@@ -18,6 +19,7 @@ def ordertostring(order):
         return "-"
     else:
         return "?"
+
 
 class General:
     'general node-processor class' 
@@ -61,7 +63,7 @@ class General:
                     if self.ordict[key] == orders.retreat:
                         gen.ordict[key] = orders.attack
                         if self.id == 0: 
-                            gen.original = orders.attack #janky solution for saving original order. update somehow if possible
+                            gen.original = orders.attack #janky solution for saving original order. 
                     else:
                         gen.ordict[key] = orders.retreat
                         if self.id == 0:
@@ -117,7 +119,7 @@ def readorders(): #reads in orders and returns a list of them
 def run_generals(orderset):
     for order in orderset: 
         generals(order)
-        print ""           #last newline needed>
+        print ""           
 
 
 def generals(order):
@@ -228,6 +230,6 @@ def majority(general, bros, prefix):
         exit(1)
 
 
-#######################
+#######################--Main--#######
 
 run_generals( readorders() )
