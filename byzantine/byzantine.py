@@ -44,7 +44,6 @@ class General:
         else:
             return False
 
-
     def tell_orders(self, generals, prefix):
         key = ''.join([prefix, str(self.id)])          
         self.ordict[key] = self.ordict[prefix] #"tell yourself what you are talking about" --redundant, but helpful in passing orders btw layers
@@ -56,12 +55,9 @@ class General:
                     gen.original = self.ordict[key]
                 if verbose:
                     print "I, " + str(self.id) + " told general " + str(gen.id) + " to " + str(self.ordict[key]) + " for prefix" + prefix
-
         else: #Traitor! 
             for gen in generals:
-
                 if gen.id % 2 == 0: 
-                
                     if self.ordict[key] == orders.retreat:
                         gen.ordict[key] = orders.attack
                         if self.id == 0: 
@@ -70,13 +66,10 @@ class General:
                         gen.ordict[key] = orders.retreat
                         if self.id == 0:
                             gen.original = orders.retreat
-                
                 else:
                     gen.ordict[key] = self.ordict[key] 
                     if self.id == 0:
                         gen.original = self.ordict[key]
-
-
 
     def printgen(self, prefix, others):
         orderlist = ""
@@ -121,12 +114,10 @@ def readorders(): #reads in orders and returns a list of them
     return orderset
 
 
-
 def run_generals(orderset):
     for order in orderset: 
         generals(order)
         print ""           #last newline needed>
-
 
 
 def generals(order):
@@ -153,8 +144,6 @@ def generals(order):
         gen.printgen('_0',generals[1:])
     
 
-
-
 def _generals_h(prefix, m, commander, generals): 
     newfix = ''.join([prefix,str(commander.id)]) #create new prefix to convey to lnts who Com. is talking about.
 
@@ -178,8 +167,6 @@ def _generals_h(prefix, m, commander, generals):
             gen.order = gen.ordict[newfix]
        
     return 
-
-
 
 
 def majority(general, bros, prefix):
@@ -239,7 +226,6 @@ def majority(general, bros, prefix):
     else:
         print "math failed."
         exit(1)
-
 
 
 #######################
