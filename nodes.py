@@ -1,3 +1,7 @@
+"""Henry Riordan, 2014. Simluation of the Byzantine General's Algorithm"""
+
+
+
 import copy
 
 class orders:
@@ -5,7 +9,6 @@ class orders:
     retreat = 2
     tie = 3
     
-
 
 class General:
     'general node-processor class' 
@@ -22,7 +25,7 @@ class General:
         General.nodeCount += 1
         
         self.order = orders.retreat #default to retreat?
-        
+        self.original = 4
         self.ordict = {}  #global orders dictionary consisting of a prefix keys and order values
                           #e.g. '013': 'attack' ==>3 said 1 said 0 ordered attack 
 
@@ -53,6 +56,8 @@ class General:
         if self.loyal == True: 
             for gen in generals:
                 gen.ordict[key] = self.ordict[key]
+                if self.id == 0: 
+                    gen.original = self.ordict[key]
                 if verbose:
                     print "I told general " + str(gen.id) + " to " + str(self.ordict[key]) + " for prefix" + prefix
 
@@ -61,16 +66,21 @@ class General:
                 if gen.id % 2 == 0: 
                     if self.ordict[key] == orders.retreat:
                         gen.ordict[key] = orders.attack
+                        if self.id == 0: 
+                            gen.original = orders.attack #janky solution for saving original order. update somehow if possible
                     else:
                         gen.ordict[key] = orders.retreat
+                        if self.id == 0:
+                            gen.original = orders.retreat
                 else:
                     gen.ordict[key] = self.ordict[key] 
-    
+                    if self.id == 0:
+                        gen.original = self.ordict[key]
 
 
     def printgen(self, prefix, others):
         orderlist = ""
-        orderlist += str(self.ordict[prefix]) + " " # original order from commander 
+        orderlist += str(self.original) + " " # original order from commander 
 
         for gen in others: 
             if self == gen: #will it blend?
@@ -173,7 +183,6 @@ def _generals_h(prefix, m, commander, generals):
             cpy.remove(gen)
             gen.ordict[newfix] = majority(gen, cpy , newfix) #again, ensure the scope here. 
             gen.order = gen.ordict[newfix]
-
        
     return 
 
